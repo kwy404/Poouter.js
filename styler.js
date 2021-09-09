@@ -1,16 +1,18 @@
 const Styled = {}
 
+window.styled = []
+
 const Supar = (name, tag, Style) => {
-    window[name.toLowerCase()] = {
+    window.styled[name.toLowerCase()] = {
         styler: '',
         el: '',
         tag: ''
     }
-    window[name.toLowerCase()].styler = Style
-    window[name.toLowerCase()].el = document.querySelectorAll(name)
-    window[name.toLowerCase()].tag = tag
+    window.styled[name.toLowerCase()].styler = Style
+    window.styled[name.toLowerCase()].el = document.querySelectorAll(name)
+    window.styled[name.toLowerCase()].tag = tag
     document.querySelector('body').setAttribute('created', '???')
-    return window[name.toLowerCase()]
+    return window.styled[name.toLowerCase()]
 }
 
 class Styler {
@@ -42,14 +44,14 @@ class Styler {
         const timer = setInterval(() => {
             try {
                 document.querySelectorAll('*').forEach((item) => {
-                    if (window[item.tagName.toLowerCase()]) {
-                        window[item.tagName.toLowerCase()].el.forEach((el, index) => {
-                            el.outerHTML = `<${window[el.tagName.toLowerCase()].tag}
+                    if (window.styled[item.tagName.toLowerCase()]) {
+                        window.styled[item.tagName.toLowerCase()].el.forEach((el, index) => {
+                            el.outerHTML = `<${window.styled[el.tagName.toLowerCase()].tag}
                             id='${el.tagName.toLocaleLowerCase()}${index}'>
                                             ${el.innerHTML}
-                            </${window[item.tagName.toLowerCase()].tag}/>`
+                            </${window.styled[item.tagName.toLowerCase()].tag}/>`
                             const classe = this.nameClass(25)
-                            let stylerd = window[el.tagName.toLowerCase()].styler
+                            let stylerd = window.styled[el.tagName.toLowerCase()].styler
                             const array = stylerd.split('\n')
                             array.forEach((variable) => {
                                 let arrayV = variable.split('$')
@@ -73,6 +75,7 @@ class Styler {
                 document.querySelector('body').setAttribute('created', 'true')
             } else {
                 loops++
+                window.styled = undefined
             }
         }, 100);
     }
