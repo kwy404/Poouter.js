@@ -18,6 +18,7 @@ const Supar = (name, tag, Style) => {
 class Styler {
     constructor(name = '???') {
         console.info(`Created by ${name}`)
+        this.attrsDenied = ['src', 'class', 'id', 'name', 'placeholder', 'title', 'autocomplete', 'autofocus', 'draggable', 'href', 'min', 'max', 'poster', 'rel', 'style', 'width']
         this.mounted();
     }
     nameClass(length) {
@@ -47,10 +48,12 @@ class Styler {
                 document.querySelectorAll('*').forEach((item) => {
                     if (window.styled[item.tagName.toLowerCase()]) {
                         window.styled[item.tagName.toLowerCase()].el.forEach((el, index) => {
+                            const HTML = window.styled[item.tagName.toLowerCase()].tag || ''
+                            const attrs = el.attributes
                             el.outerHTML = `<${window.styled[el.tagName.toLowerCase()].tag}
                             id='${el.tagName.toLocaleLowerCase()}${index}'>
                                             ${el.innerHTML}
-                            </${window.styled[item.tagName.toLowerCase()].tag}/>`
+                            </${HTML}/>`
                             const classe = this.nameClass(25)
                             let stylerd = window.styled[el.tagName.toLowerCase()].styler
                             const array = stylerd.split('\n')
@@ -64,6 +67,11 @@ class Styler {
                             })
                             this.createClass(`${classe}`, stylerd)
                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(classe)
+                            for(let i = 0; i < attrs.length; i++){
+                                if(!this.attrsDenied.indexOf(attrs[i].name)){
+                                document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
+                                }
+                            }
                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).removeAttribute('id')
                         })
                     }
