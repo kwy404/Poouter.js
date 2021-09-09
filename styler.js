@@ -1,6 +1,6 @@
 const Styled = {}
 
-window.styled = []
+window.styled = {}
 
 const Supar = (name, tag, Style) => {
     window.styled[name.toLowerCase()] = {
@@ -47,8 +47,11 @@ class Styler {
             try {
                 document.querySelectorAll('*').forEach((item) => {
                     if (window.styled[item.tagName.toLowerCase()]) {
-                        window.styled[item.tagName.toLowerCase()].el.forEach((el, index) => {
-                            const HTML = window.styled[item.tagName.toLowerCase()].tag || ''
+                        document.querySelectorAll('*').forEach((el, index) => {
+                            if(!window.styled[el.tagName.toLowerCase()]){
+                                return
+                            }
+                            const HTML = window.styled[el.tagName.toLowerCase()].tag || ''
                             const attrs = el.attributes
                             el.outerHTML = `<${window.styled[el.tagName.toLowerCase()].tag}
                             id='${el.tagName.toLocaleLowerCase()}${index}'>
@@ -77,7 +80,7 @@ class Styler {
                     }
                 })
             } catch (error) {
-                //
+                console.log(error)
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
