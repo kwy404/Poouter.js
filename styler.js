@@ -76,14 +76,11 @@ class Styler {
                                 }
                             }
                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).removeAttribute('id')
-                            
                         })
-                        
-                        
                     }
                 })
             } catch (error) {
-                console.log(error)
+                //console.log(error)
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
