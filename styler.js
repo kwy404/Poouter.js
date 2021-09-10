@@ -72,22 +72,25 @@ class Styler {
                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(classe)
                             for(let i = 0; i < attrs.length; i++){
                                 if(!this.attrsDenied.indexOf(attrs[i].name)){
-                                document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
+                                    document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
                                 }
                             }
                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).removeAttribute('id')
+                            
                         })
+                        
+                        
                     }
                 })
             } catch (error) {
-                //console.log(error)
+                console.log(error)
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
                 document.querySelector('body').setAttribute('created', 'true')
             } else {
                 loops++
-                window.styled = undefined
+                this.mounted()
             }
         }, 100);
     }
