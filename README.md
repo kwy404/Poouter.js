@@ -33,3 +33,20 @@
 
     new Styler();
 ```
+
+<div align="center">
+  <strong>Example documentation</strong>
+  <br />
+  <br />
+  
+</div>
+```jsx
+ Supar(
+        'Headers', //Tag Name
+        'header', // Tag attribute
+        `
+            color: $color; // $color is attr from <Headers color='red'>
+            background: ${cor} //Variable name;
+            user-select: none;
+        `)
+```
