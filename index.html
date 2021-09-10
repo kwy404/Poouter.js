@@ -8,35 +8,41 @@
 </head>
 <body>
 
+
     <Headers
-    color='white'
-    background='red'>
-    <h1>Red</h1>
+    color='green'
+    background='black'>
+        <Titulo color='blue'>Oi
+            <Titulo color='green'>Oi
+                <Titulo color='white'>Oi
+                    <Titulo color='gray'>Oi</Titulo>
+                </Titulo>
+            </Titulo>
+        </Titulo>
     </Headers>
-
-
-    <Avatar
-    src='https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg'>
-    </Avatar>
-
+    
     <script src="./styler.js"></script>
     <script>
-
     (
     Styled.new = () => {
+    const cor = 'red'
     Supar(
         'Headers',
         'header',
         `
             color: $color;
-            background: $background;
+            background: ${cor};
+            user-select: none;
+
         `)
     Supar(
-        'Title',
+        'Titulo',
         'h1',
         `
             color: $color;
+            font-size: 18px;
             padding: 10px;
+            
         `)
     Supar(
         'Avatar',
