@@ -40,10 +40,12 @@
   <br />
   
 </div>
+
+
 ```jsx
  Supar(
-        'Headers', //Tag Name
-        'header', // Tag attribute
+        'Headers', //Tag Name html
+        'header', // Tag attribute set
         `
             color: $color; // $color is attr from <Headers color='red'>
             background: ${cor} //Variable name;
