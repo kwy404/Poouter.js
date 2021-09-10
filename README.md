@@ -22,12 +22,16 @@
 
 
 ```jsx
- Supar(
-        'Headers', //Tag Name html
-        'header', // Tag attribute set
-        `
-            color: $color; // $color is attr from <Headers color='red'>
-            background: ${cor} //Variable name;
-            user-select: none;
-        `)
+(
+    Styled.new = () => {
+     Supar(
+            'Headers', //Tag Name html
+            'header', // Tag attribute set
+            `
+                color: $color; // $color is attr from <Headers color='red'>
+                background: ${cor} //Variable name;
+                user-select: none;
+            `)
+)()
+new Styler();
 ```
