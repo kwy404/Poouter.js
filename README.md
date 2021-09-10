@@ -13,27 +13,6 @@
   
 </div>
 
-```jsx
-(
-    Styled.new = () => {
-    Supar(
-        'Header',
-        'header',
-        `
-            color: $color;
-            background: $background;
-        `)
-    Supar(
-        'Title',
-        'h1',
-        `
-            color: orange;
-        `)
-    })()
-
-    new Styler();
-```
-
 <div align="center">
   <strong>Example documentation</strong>
   <br />
