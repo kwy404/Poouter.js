@@ -71,7 +71,7 @@ class Styler {
                             this.createClass(`${classe}`, stylerd)
                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(classe)
                             for(let i = 0; i < attrs.length; i++){
-                                if(!this.attrsDenied.indexOf(attrs[i].name)){
+                                if(!this.attrsDenied.find(e => e == attrs[i].name){
                                     document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
                                 }
                             }
