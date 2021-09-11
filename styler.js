@@ -51,12 +51,12 @@ class Styler {
                             if(!window.styled[el.tagName.toLowerCase()]){
                                 return
                             }
-                            const HTML = window.styled[el.tagName.toLowerCase()].tag || ''
+                            const TAG = window.styled[el.tagName.toLowerCase()].tag || ''
                             const attrs = el.attributes
-                            el.outerHTML = `<${window.styled[el.tagName.toLowerCase()].tag}
+                            el.outerHTML = `<${TAG}
                             id='${el.tagName.toLocaleLowerCase()}${index}'>
                                             ${el.innerHTML}
-                            </${HTML}/>`
+                            </${TAG}/>`
                             const classe = this.nameClass(25)
                             let stylerd = window.styled[el.tagName.toLowerCase()].styler
                             const array = stylerd.split('\n')
