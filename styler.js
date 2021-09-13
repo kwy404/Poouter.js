@@ -224,7 +224,7 @@ class Styler {
                     }
                 })
             } catch (error) {
-                console.log(error)
+                //console.log(error)
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
