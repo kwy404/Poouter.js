@@ -88,7 +88,7 @@ class Styler {
     }
     /* start at 75 for 'a' until 'z' (25) and then start at 65 for capitalised letters */
     getAlphabeticChar = (code) => String.fromCharCode(code + (code > 25 ? 39 : 97));
-    generateAlphabeticName(code, charsLength = 52, AD_REPLACER_R = /(a)(d)/gi) {
+    generateAlphabeticName(code, charsLength = 39, AD_REPLACER_R = /(a)(d)/gi) {
         let name = '';
         let x;
       
@@ -187,7 +187,7 @@ class Styler {
                                             ${el.innerHTML}
                             </${TAG}/>`
                             let stylerd = window.styled[el.tagName.toLowerCase()].styler
-                            const HashCode = this.generateHashCode(stylerd)
+                            const HashCode = this.generateHashCode(`${stylerd}_stylerd_Poouter`)
                             const classe = this.generateAlphabeticName(HashCode)
 
                             const array = stylerd.split('\n')
