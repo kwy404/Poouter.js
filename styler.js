@@ -1,6 +1,7 @@
 const Styled = {}
 
 window.styled = {}
+window.styledClass = []
 const style = document.createElement('style');
 style.setAttribute('name', 'Poouter')
 style.type = 'text/css';
@@ -10,7 +11,8 @@ const Style = (name, tag, Style) => {
     window.styled[name.toLowerCase()] = {
         styler: '',
         el: '',
-        tag: ''
+        tag: '',
+        styleClass: ''
     }
     window.styled[name.toLowerCase()].styler = Style
     window.styled[name.toLowerCase()].el = document.querySelectorAll(name)
@@ -37,15 +39,19 @@ class Styler {
         return result;
     }
     createClass(name, rules) {
-        const otherRules = this.sassLogic(name, rules)
-        if (!(style.sheet || {}).insertRule)
-            (style.styleSheet || style.sheet).addRule(name, rules);
-        else
-            style.sheet.insertRule(`.${name} { ${rules} }`, 0)
-        otherRules.forEach((rule, index) => {
-            
-            style.sheet.insertRule(`.${name}${rule.type}{ ${rule.styleB} }`, index + 1)
-        })
+        if (!window.styledClass.find(e => e === name)) {
+            window.styledClass.push(name)
+            const otherRules = this.sassLogic(name, rules)
+            if (!(style.sheet || {}).insertRule) {
+                (style.styleSheet || style.sheet).addRule(name, rules);
+            }
+            else {
+                style.sheet.insertRule(`.${name} { ${rules} }`, 0)
+                otherRules.forEach((rule, index) => {
+                    style.sheet.insertRule(`.${name}${rule.type}{ ${rule.styleB} }`, index + 1)
+                })
+            }
+        }
     }
     sassLogic(name, rules) {
         const regex = /:[a-zA-Z]/gm
@@ -130,7 +136,7 @@ class Styler {
                     }
                 })
             } catch (error) {
-                //console.log(error)
+                console.log(error)
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
