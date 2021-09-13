@@ -99,6 +99,7 @@ class Styler {
         if (!window.styledClass.find((e) => e === name)) {
             window.styledClass.push(name)
             const otherRules = this.sassLogic(name, rules)
+            
             if (!(style.sheet || {}).insertRule) {
                 ; (style.styleSheet || style.sheet).addRule(name, rules)
             } else {
@@ -107,7 +108,20 @@ class Styler {
                 otherRules.forEach((rule, index) => {
                     const type = rule.type
                     const styleLogic = rule.styleB
+                    let styleB = rule.styleB
                     window.styled[name.toLowerCase()] = {...type, styleLogic}
+                    const array = styleB.split('\n')
+                    array.forEach((variable) => {
+                        let arrayV = variable.split('$')
+                        if (arrayV[1]) {
+                            let variable_ = arrayV[1].replace(';', '')
+                            const booVariable_ = el.getAttribute(variable_)
+                            styleB = styleB.replaceAll(
+                                `$${variable_}`,
+                                `${booVariable_}`
+                            )
+                        }
+                    })
                     style.sheet.insertRule(
                         `.${name}${rule.type}{ ${rule.styleB} }`,
                         index + 1
