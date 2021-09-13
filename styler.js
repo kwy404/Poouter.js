@@ -36,10 +36,44 @@ class Styler {
         style.setAttribute('name', name)
         style.type = 'text/css';
         document.getElementsByTagName('head')[0].appendChild(style);
+        const otherRules = this.sassLogic(name, rules)
+        console.log(otherRules)
         if (!(style.sheet || {}).insertRule)
             (style.styleSheet || style.sheet).addRule(name, rules);
         else
-            style.sheet.insertRule('.' + name + " { " + rules + " }", 0);
+            style.sheet.insertRule(`.${name} { ${rules} }`, 0)
+            otherRules.forEach((rule, index) => {
+                style.sheet.insertRule(`.${name}${rule.type}{ ${rule.styleB} }`, index + 1)
+            })
+    }
+    sassLogic(name, rules){
+        const regex = /:[a-zA-Z]/gm
+        let n = rules.search(regex);
+        let rule = ''
+        let type = ''
+        let rulesObject = []
+        let style = {}
+        for(let i = n; i < rules.length; i++){
+            rule += rules[i]
+        }
+        let arrayRules = rule.split('{').forEach(ruleB => {
+            ruleB.split('}').forEach((ruleC, index) => {
+                if(!ruleC.trim().search(regex)){
+                    type = ruleC.trim()
+                }
+                const regexStyle = /type{/gm
+                if(ruleC.trim().search(regexStyle)){
+                    if(ruleC.includes(';')){
+                        style[type] = ruleC
+                    }
+                }
+                if(style[type] && !rulesObject.find(e => e.name === name && e.type === type)){
+                    const styleB = style[type]
+                    rulesObject.push({type, styleB, name})
+                }
+            })
+        })
+        return rulesObject
     }
     mounted() {
         let loops = 0
@@ -80,7 +114,7 @@ class Styler {
                     }
                 })
             } catch (error) {
-                //console.log(error)
+                console.log(error)
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
