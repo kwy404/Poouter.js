@@ -6,7 +6,6 @@ style.setAttribute('name', 'Poouter')
 style.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(style);
 
-
 const Style = (name, tag, Style) => {
     window.styled[name.toLowerCase()] = {
         styler: '',
