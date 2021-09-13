@@ -10,6 +10,7 @@
 
 
     <Headers
+    click="console.log(`oi bye`)"
     color='white'
     background='black'>
         <h1>Oi</h1>
@@ -28,17 +29,11 @@
             background: ${cor};
             user-select: none;
             :hover{
-                color: ${cor};
+                color: blue;
             }
             :active{
                 background: green;
-            }
-            :after{
-                content: '';
-                width: 100px;
-                height: 100px;
-                background: green;
-                position: absolute;
+                color: $color;
             }
         `)
     }
