@@ -104,7 +104,6 @@ class Styler {
     * 
     * @param {string} name Generated HASH for class name, such as 'fmwOTC'
     * @param {string} css Resolved CSS as string
-    * @returns 
     */
     injectCss(name, rules) {
         if (!window.styledClass.find((e) => e === name)) {
@@ -123,6 +122,13 @@ class Styler {
             }
         }
     }
+     /**
+    * Break stylis in rules and inject them via CSSOM.
+    * 
+    * @param {string} name Generated HASH for class name, such as 'fmwOTC'
+    * @param {string} css Resolved CSS as string
+    * @returns logicSass
+    */
     sassLogic(name, rules) {
         const regex = /:[a-zA-Z]/gm
         let n = rules.search(regex)
