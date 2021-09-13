@@ -38,7 +38,6 @@ class Styler {
   }
   createClass(name, rules) {
     const otherRules = this.sassLogic(name, rules)
-    console.log(otherRules)
     if (!(style.sheet || {}).insertRule)
       (style.styleSheet || style.sheet).addRule(name, rules);
     else
@@ -123,7 +122,7 @@ class Styler {
           }
         })
       } catch (error) {
-        console.log(error)
+        //console.log(error)
       }
       if (loops >= document.querySelectorAll('*').length * 2) {
         clearInterval(timer)
