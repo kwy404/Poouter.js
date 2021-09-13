@@ -2,7 +2,7 @@ const Styled = {}
 
 window.styled = {}
 
-const Supar = (name, tag, Style) => {
+const Style = (name, tag, Style) => {
   window.styled[name.toLowerCase()] = {
     styler: '',
     el: '',
