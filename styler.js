@@ -86,16 +86,27 @@ class Styler {
         this.mounted()
         this.styled = window.styled
     }
-    nameClass(length) {
-        var result = ''
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-'
-        var charactersLength = characters.length
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength))
+    /* start at 75 for 'a' until 'z' (25) and then start at 65 for capitalised letters */
+    getAlphabeticChar = (code) => String.fromCharCode(code + (code > 25 ? 39 : 97));
+    generateAlphabeticName(code, charsLength = 52, AD_REPLACER_R = /(a)(d)/gi) {
+        let name = '';
+        let x;
+      
+        /* get a char and divide by alphabet-length */
+        for (x = Math.abs(code); x > charsLength; x = (x / charsLength) | 0) {
+          name = this.getAlphabeticChar(x % charsLength) + name;
         }
-        return result
+      
+        return (this.getAlphabeticChar(x % charsLength) + name).replace(AD_REPLACER_R, '$1-$2');
     }
-    createClass(name, rules) {
+    /**
+    * Break stylis in rules and inject them via CSSOM.
+    * 
+    * @param {string} name Generated HASH for class name, such as 'fmwOTC'
+    * @param {string} css Resolved CSS as string
+    * @returns 
+    */
+    injectCss(name, rules) {
         if (!window.styledClass.find((e) => e === name)) {
             window.styledClass.push(name)
             const otherRules = this.sassLogic(name, rules)
@@ -148,6 +159,12 @@ class Styler {
         })
         return rulesObject
     }
+    generateHashCode(string) {
+        return string.split('').reduce(function(a, b) {
+          a = ((a<<5) - a) + b.charCodeAt(0);
+          return a & a 
+        }, 0);              
+      }
     mounted(loops = 0, timer = null) {
         timer = setInterval(() => {
             try {
@@ -163,8 +180,10 @@ class Styler {
                             id='${el.tagName.toLocaleLowerCase()}${index}'>
                                             ${el.innerHTML}
                             </${TAG}/>`
-                            const classe = this.nameClass(25)
                             let stylerd = window.styled[el.tagName.toLowerCase()].styler
+                            const HashCode = this.generateHashCode(stylerd)
+                            const classe = this.generateAlphabeticName(HashCode)
+
                             const array = stylerd.split('\n')
                             array.forEach((variable) => {
                                 let arrayV = variable.split('$')
@@ -177,7 +196,7 @@ class Styler {
                                     )
                                 }
                             })
-                            this.createClass(`${classe}`, stylerd)
+                            this.injectCss(`${classe}`, stylerd)
                             document
                                 .querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`)
                                 .classList.add(classe)
@@ -220,7 +239,7 @@ class Styler {
                     }
                 })
             } catch (error) {
-                //console.log(error);
+                console.log(error);
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
