@@ -1,18 +1,16 @@
 const Styled = {}
-
 window.styled = {}
 window.styledClass = []
-const style = document.createElement('style');
+const style = document.createElement('style')
 style.setAttribute('name', 'Poouter')
-style.type = 'text/css';
-document.getElementsByTagName('head')[0].appendChild(style);
-
+style.type = 'text/css'
+document.getElementsByTagName('head')[0].appendChild(style)
 const Style = (name, tag, Style) => {
     window.styled[name.toLowerCase()] = {
         styler: '',
         el: '',
         tag: '',
-        styleClass: ''
+        styleClass: '',
     }
     window.styled[name.toLowerCase()].styler = Style
     window.styled[name.toLowerCase()].el = document.querySelectorAll(name)
@@ -20,42 +18,103 @@ const Style = (name, tag, Style) => {
     document.querySelector('body').setAttribute('created', 'Poouter')
     return window.styled[name.toLowerCase()]
 }
-
 class Styler {
     constructor(name = '???') {
-        this.attrsDenied = ['src', 'class', 'id', 'name', 'placeholder', 'title', 'autocomplete', 'autofocus', 'draggable', 'href', 'min', 'max', 'poster', 'rel', 'style', 'width', 'bind', 'blur', 'change', 'click', 'dblclick', 'delegate', 'die', 'error', 'hover', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'ready', 'resize', 'toggle', 'load', 'unload', 'submit']
-        this.events = ['blur', 'change', 'click', 'dblclick', 'delegate', 'die', 'error', 'hover', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'ready', 'resize', 'toggle', 'load', 'unload', 'submit']
-        this.mounted();
+        this.attrsDenied = [
+            'src',
+            'class',
+            'id',
+            'name',
+            'placeholder',
+            'title',
+            'autocomplete',
+            'autofocus',
+            'draggable',
+            'href',
+            'min',
+            'max',
+            'poster',
+            'rel',
+            'style',
+            'width',
+            'bind',
+            'blur',
+            'change',
+            'click',
+            'dblclick',
+            'delegate',
+            'die',
+            'error',
+            'hover',
+            'mousedown',
+            'mouseenter',
+            'mouseleave',
+            'mousemove',
+            'mouseout',
+            'mouseover',
+            'mouseup',
+            'ready',
+            'resize',
+            'toggle',
+            'load',
+            'unload',
+            'submit',
+        ]
+        this.events = [
+            'blur',
+            'change',
+            'click',
+            'dblclick',
+            'delegate',
+            'die',
+            'error',
+            'hover',
+            'mousedown',
+            'mouseenter',
+            'mouseleave',
+            'mousemove',
+            'mouseout',
+            'mouseover',
+            'mouseup',
+            'ready',
+            'resize',
+            'toggle',
+            'load',
+            'unload',
+            'submit',
+        ]
+        this.mounted()
         this.styled = window.styled
     }
     nameClass(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-';
-        var charactersLength = characters.length;
+        var result = ''
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-'
+        var charactersLength = characters.length
         for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() *
-                charactersLength));
+            result += characters.charAt(Math.floor(Math.random() * charactersLength))
         }
-        return result;
+        return result
     }
     createClass(name, rules) {
-        if (!window.styledClass.find(e => e === name)) {
+        if (!window.styledClass.find((e) => e === name)) {
             window.styledClass.push(name)
             const otherRules = this.sassLogic(name, rules)
             if (!(style.sheet || {}).insertRule) {
-                (style.styleSheet || style.sheet).addRule(name, rules);
-            }
-            else {
+                ; (style.styleSheet || style.sheet).addRule(name, rules)
+            } else {
                 style.sheet.insertRule(`.${name} { ${rules} }`, 0)
                 otherRules.forEach((rule, index) => {
-                    style.sheet.insertRule(`.${name}${rule.type}{ ${rule.styleB} }`, index + 1)
+                    style.sheet.insertRule(
+                        `.${name}${rule.type}{ ${rule.styleB} }`,
+                        index + 1
+                    )
                 })
             }
         }
     }
     sassLogic(name, rules) {
         const regex = /:[a-zA-Z]/gm
-        let n = rules.search(regex);
+        let n = rules.search(regex)
         let rule = ''
         let type = ''
         let rulesObject = []
@@ -63,7 +122,7 @@ class Styler {
         for (let i = n; i < rules.length; i++) {
             rule += rules[i]
         }
-        let arrayRules = rule.split('{').forEach(ruleB => {
+        let arrayRules = rule.split('{').forEach((ruleB) => {
             ruleB.split('}').forEach((ruleC, index) => {
                 if (!ruleC.trim().search(regex)) {
                     type = ruleC.trim()
@@ -74,12 +133,15 @@ class Styler {
                         style[type] = ruleC
                     }
                 }
-                if (style[type] && !rulesObject.find(e => e.name === name && e.type === type)) {
+                if (
+                    style[type] &&
+                    !rulesObject.find((e) => e.name === name && e.type === type)
+                ) {
                     const styleB = style[type]
                     rulesObject.push({
                         type,
                         styleB,
-                        name
+                        name,
                     })
                 }
             })
@@ -88,7 +150,9 @@ class Styler {
     }
     mounted() {
         let loops = 0
-        const timer = setInterval(() => {
+        let timer
+
+        timer = setInterval(() => {
             try {
                 document.querySelectorAll('*').forEach((item) => {
                     if (window.styled[item.tagName.toLowerCase()]) {
@@ -110,33 +174,56 @@ class Styler {
                                 if (arrayV[1]) {
                                     let variable_ = arrayV[1].replace(';', '')
                                     const booVariable_ = el.getAttribute(variable_)
-                                    stylerd = stylerd.replaceAll(`$${variable_}`, `${booVariable_}`)
+                                    stylerd = stylerd.replaceAll(
+                                        `$${variable_}`,
+                                        `${booVariable_}`
+                                    )
                                 }
                             })
                             this.createClass(`${classe}`, stylerd)
-                            document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(classe)
+                            document
+                                .querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`)
+                                .classList.add(classe)
                             window.styled[el.tagName.toLowerCase()].class = classe
                             for (let i = 0; i < attrs.length; i++) {
-                                if (this.attrsDenied.find(e => e == attrs[i].name)) {
+                                if (this.attrsDenied.find((e) => e == attrs[i].name)) {
                                     if (attrs[i].name == 'class') {
-                                        document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(attrs[i].value)
+                                        document
+                                            .querySelector(
+                                                `#${el.tagName.toLocaleLowerCase()}${index}`
+                                            )
+                                            .classList.add(attrs[i].value)
                                     } else {
-                                        document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
-                                        if (this.events.find(e => e == attrs[i].name)) {
-                                            document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).addEventListener(attrs[i].name, () => {
-                                                eval(attrs[i].value)
-                                            })
-                                            document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).removeAttribute(attrs[i].name)
+                                        document
+                                            .querySelector(
+                                                `#${el.tagName.toLocaleLowerCase()}${index}`
+                                            )
+                                            .setAttribute(attrs[i].name, attrs[i].value)
+                                        if (this.events.find((e) => e == attrs[i].name)) {
+                                            document
+                                                .querySelector(
+                                                    `#${el.tagName.toLocaleLowerCase()}${index}`
+                                                )
+                                                .addEventListener(attrs[i].name, () => {
+                                                    eval(attrs[i].value)
+                                                })
+                                            document
+                                                .querySelector(
+                                                    `#${el.tagName.toLocaleLowerCase()}${index}`
+                                                )
+                                                .removeAttribute(attrs[i].name)
                                         }
                                     }
                                 }
                             }
-                            document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).removeAttribute('id')
+                            document
+                                .querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`)
+                                .removeAttribute('id')
                         })
                     }
                 })
             } catch (error) {
-                //console.log(error)
+                //console.log(error);
             }
             if (loops >= document.querySelectorAll('*').length * 2) {
                 clearInterval(timer)
@@ -145,6 +232,6 @@ class Styler {
                 loops++
                 this.mounted()
             }
-        }, 100);
+        }, 100)
     }
 }
