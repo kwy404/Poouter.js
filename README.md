@@ -24,15 +24,30 @@
 ```jsx
 (
     Styled.new = () => {
-     const cor = 'red'
-     Style(
-     'Headers', //Tag Name html
-     'header', // Tag attribute set
-      `
-        color: $color; // $color is attr from <Headers color='red'>
-        background: ${cor} //Variable name;
-        user-select: none;
-      `)
-)()
-new Styler();
+    const cor = 'red'
+    Style(
+        'Headers',
+        'header',
+        `
+            color: $color;
+            background: ${cor};
+            user-select: none;
+            :hover{
+                color: ${cor};
+            }
+            :active{
+                background: green;
+            }
+            :after{
+                content: '';
+                width: 100px;
+                height: 100px;
+                background: green;
+                position: absolute;
+            }
+        `)
+    }
+    )()
+
+    new Styler();
 ```
