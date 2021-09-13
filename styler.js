@@ -1,6 +1,11 @@
 const Styled = {}
 
 window.styled = {}
+const style = document.createElement('style');
+style.setAttribute('name', name)
+style.type = 'text/css';
+document.getElementsByTagName('head')[0].appendChild(style);
+
 
 const Style = (name, tag, Style) => {
   window.styled[name.toLowerCase()] = {
@@ -32,10 +37,6 @@ class Styler {
     return result;
   }
   createClass(name, rules) {
-    const style = document.createElement('style');
-    style.setAttribute('name', name)
-    style.type = 'text/css';
-    document.getElementsByTagName('head')[0].appendChild(style);
     const otherRules = this.sassLogic(name, rules)
     console.log(otherRules)
     if (!(style.sheet || {}).insertRule)
@@ -110,7 +111,11 @@ class Styler {
               document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(classe)
               for (let i = 0; i < attrs.length; i++) {
                 if (this.attrsDenied.find(e => e == attrs[i].name)) {
-                  document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
+                  if(attrs[i].name == 'class'){
+                    document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(attrs[i].value)
+                  } else{
+                    document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
+                  }
                 }
               }
               document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).removeAttribute('id')
