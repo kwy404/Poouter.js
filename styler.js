@@ -25,6 +25,7 @@ class Styler {
         this.attrsDenied = ['src', 'class', 'id', 'name', 'placeholder', 'title', 'autocomplete', 'autofocus', 'draggable', 'href', 'min', 'max', 'poster', 'rel', 'style', 'width', 'bind', 'blur', 'change', 'click', 'dblclick', 'delegate', 'die', 'error', 'hover', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'ready', 'resize', 'toggle', 'load', 'unload', 'submit']
         this.events = ['blur', 'change', 'click', 'dblclick', 'delegate', 'die', 'error', 'hover', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'ready', 'resize', 'toggle', 'load', 'unload', 'submit']
         this.mounted();
+        this.styled = window.styled
     }
     nameClass(length) {
         var result = '';
@@ -43,6 +44,7 @@ class Styler {
         else
             style.sheet.insertRule(`.${name} { ${rules} }`, 0)
         otherRules.forEach((rule, index) => {
+            
             style.sheet.insertRule(`.${name}${rule.type}{ ${rule.styleB} }`, index + 1)
         })
     }
@@ -108,6 +110,7 @@ class Styler {
                             })
                             this.createClass(`${classe}`, stylerd)
                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).classList.add(classe)
+                            window.styled[el.tagName.toLowerCase()].class = classe
                             for (let i = 0; i < attrs.length; i++) {
                                 if (this.attrsDenied.find(e => e == attrs[i].name)) {
                                     if (attrs[i].name == 'class') {
@@ -116,7 +119,7 @@ class Styler {
                                         document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).setAttribute(attrs[i].name, attrs[i].value)
                                         if (this.events.find(e => e == attrs[i].name)) {
                                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).addEventListener(attrs[i].name, () => {
-                                                alert('oi')
+                                                eval(attrs[i].value)
                                             })
                                             document.querySelector(`#${el.tagName.toLocaleLowerCase()}${index}`).removeAttribute(attrs[i].name)
                                         }
