@@ -10,15 +10,9 @@
 
 
     <Headers
-    color='green'
+    color='white'
     background='black'>
-        <Titulo color='blue'>Oi
-            <Titulo color='green'>Oi
-                <Titulo color='white'>Oi
-                    <Titulo color='gray'>Oi</Titulo>
-                </Titulo>
-            </Titulo>
-        </Titulo>
+        <h1>Oi</h1>
     </Headers>
     
     <script src="./styler.js"></script>
@@ -33,23 +27,19 @@
             color: $color;
             background: ${cor};
             user-select: none;
-
-        `)
-    Supar(
-        'Titulo',
-        'h1',
-        `
-            color: $color;
-            font-size: 18px;
-            padding: 10px;
-            
-        `)
-    Supar(
-        'Avatar',
-        'img',
-        `
-            padding: 10px;
-            width: 200px;
+            :hover{
+                color: ${cor};
+            }
+            :active{
+                background: green;
+            }
+            :after{
+                content: '';
+                width: 100px;
+                height: 100px;
+                background: green;
+                position: absolute;
+            }
         `)
     }
     )()
