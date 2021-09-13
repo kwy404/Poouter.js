@@ -24,7 +24,8 @@
 ```jsx
 (
     Styled.new = () => {
-     Supar(
+     const cor = 'red'
+     Style(
      'Headers', //Tag Name html
      'header', // Tag attribute set
       `
