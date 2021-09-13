@@ -58,7 +58,7 @@ class Styler {
             'toggle',
             'load',
             'unload',
-            'submit',
+            'submit'
         ]
         this.events = [
             'blur',
@@ -81,7 +81,7 @@ class Styler {
             'toggle',
             'load',
             'unload',
-            'submit',
+            'submit'
         ]
         this.mounted()
         this.styled = window.styled
@@ -148,10 +148,7 @@ class Styler {
         })
         return rulesObject
     }
-    mounted() {
-        let loops = 0
-        let timer
-
+    mounted(loops = 0, timer = null) {
         timer = setInterval(() => {
             try {
                 document.querySelectorAll('*').forEach((item) => {
