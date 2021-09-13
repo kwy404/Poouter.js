@@ -2,7 +2,7 @@ const Styled = {}
 
 window.styled = {}
 const style = document.createElement('style');
-style.setAttribute('name', name)
+style.setAttribute('name', 'Poouter')
 style.type = 'text/css';
 document.getElementsByTagName('head')[0].appendChild(style);
 
