@@ -15,13 +15,12 @@ const Style = (name, tag, Style) => {
     window.styled[name.toLowerCase()].styler = Style
     window.styled[name.toLowerCase()].el = document.querySelectorAll(name)
     window.styled[name.toLowerCase()].tag = tag
-    document.querySelector('body').setAttribute('created', '???')
+    document.querySelector('body').setAttribute('created', 'Poouter')
     return window.styled[name.toLowerCase()]
 }
 
 class Styler {
     constructor(name = '???') {
-        console.info(`Created by ${name}`)
         this.attrsDenied = ['src', 'class', 'id', 'name', 'placeholder', 'title', 'autocomplete', 'autofocus', 'draggable', 'href', 'min', 'max', 'poster', 'rel', 'style', 'width', 'bind', 'blur', 'change', 'click', 'dblclick', 'delegate', 'die', 'error', 'hover', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'ready', 'resize', 'toggle', 'load', 'unload', 'submit']
         this.events = ['blur', 'change', 'click', 'dblclick', 'delegate', 'die', 'error', 'hover', 'mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'ready', 'resize', 'toggle', 'load', 'unload', 'submit']
         this.mounted();
