@@ -1,12 +1,4 @@
 <div align="center">
-  <a>
-    <img alt="styled-components" src="https://freepikpsd.com/media/2019/10/kawaii-neko-png-Transparent-Images.png" height="150px" />
-  </a>
-</div>
-
-<br />
-
-<div align="center">
   <strong>Visual primitives for the component age. Using Vanilla JS 💅</strong>
   <br />
   <br />
